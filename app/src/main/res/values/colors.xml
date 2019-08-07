@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3A3F57</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF9901</color>
+    <color name="mainColor">#50FFFFFF</color>
+    <color name="homeColor">#3A3F57</color>
+    <color name="homeTextColor">#84EE0B</color>
+    <color name="textHighlight">#FF9901</color>
+    <color name="dotsColor">#01087A</color>
+    <color name="radioSelected">#504E4E</color>
+</resources>

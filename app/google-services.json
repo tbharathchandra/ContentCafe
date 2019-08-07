@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "997536902744",
+    "firebase_url": "https://content-cafe-17076.firebaseio.com",
+    "project_id": "content-cafe-17076",
+    "storage_bucket": "content-cafe-17076.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997536902744:android:96af8d05bf832071",
+        "android_client_info": {
+          "package_name": "com.ssdevelopers.blotzmann.gkworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997536902744-e5s2v67bdfkvnbs3c3rl5ak4pf8ng61o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ssdevelopers.blotzmann.gkworld",
+            "certificate_hash": "fa6ab9d2ff133a812741f16f8f565fe32cf25d33"
+          }
+        },
+        {
+          "client_id": "997536902744-90h96fg5g60qd9282eel3fg0mvcrpkj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFtJMOP5ilfiLGBFpqKfNDpIaH3h5inLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997536902744-90h96fg5g60qd9282eel3fg0mvcrpkj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

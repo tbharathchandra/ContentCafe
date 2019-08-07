@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GKActivity"
+    android:background="@android:color/black">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/gk_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        app:dotsColor="@color/mainColor"
+        app:dotsCornerRadius="3dp"
+        app:dotsSize="8dp"
+        app:dotsSpacing="1dp"
+        app:dotsWidthFactor="2.5"
+        app:selectedDotColor="@color/dotsColor"
+        app:progressMode="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+
+        />
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Content Cafe</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="link">link</string>
+    <string name="click_below_for_more_details">Click below for more details</string>
+    <string name="loading">Loading news for you...</string>
+    <string name="today_s_headlines">Today\'s Headlines</string>
+    <string name="today_s_headlines_"><![CDATA[Today\'s Headlines >]]></string>
+    <string name="today_s_gk_bytes"><![CDATA[Today\'s GK Bytes >]]></string>
+    <string name="tap_to_view_more">Tap to read more</string>
+    <string name="question">question</string>
+    <string name="option1">option1</string>
+    <string name="option2">option2</string>
+    <string name="option4">option4</string>
+    <string name="option3">option3</string>
+    <string name="info">Info</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="contact_us">Contact us</string>
+    <string name="developer">Developer</string>
+    <string name="ss_developers_india">SS Developers India</string>
+    <string name="content_cafe">This app is made in association with Content Cafe Instagram page formerly known as Only Gk World. This app is developed to provide our users with complete knowledge on current affairs and keep them in touch with world around them.  </string>
+    <string name="swipe_left_to_read_more_articles">Swipe left to read more articles</string>
+</resources>
