@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
     implementation 'com.android.support:support-v4:28.0.0'
 
+
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.eftimoff:android-viewpager-transformers:1.0.1@aar'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'

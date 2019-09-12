@@ -1,6 +1,7 @@
 package com.ssdevelopers.blotzmann.gkworld;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,20 +15,29 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.eftimoff.viewpagertransformers.CubeInTransformer;
+import com.eftimoff.viewpagertransformers.TabletTransformer;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.ads.AdRequest;
@@ -35,6 +45,9 @@ import com.google.android.gms.ads.AdView;
 
 import com.google.android.gms.ads.MobileAds;
 
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -51,29 +64,21 @@ public class HomeActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private String JsonResponseString;
     private String InstaJsonResponseString;
-    private TextView headlines, gk;
-    private RecyclerView recyclerView, gkRecyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private AdView adView;
-    private FloatingActionButton quizBtn;
-    Handler handler;
+    private CustomViewPager centerVP,leftVP,rightVP;
+    private RelativeLayout top_RL;
 
+    int currentPage = 0;
+    Timer timer;
+    final long DELAY_MS = 100;
+    final long PERIOD_MS = 5000;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
-        setSupportActionBar(toolbar);
-
-
-
-        adView = (AdView) findViewById(R.id.adview);
-        MobileAds.initialize(HomeActivity.this, "ca-app-pub-4704448064720651~4116887642");
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-        adView.setVisibility(View.GONE);
+        top_RL = findViewById(R.id.home_top);
 
         pbar = (ProgressBar) findViewById(R.id.home_pbar);
         Sprite foldingCube = new DoubleBounce();
@@ -82,101 +87,60 @@ public class HomeActivity extends AppCompatActivity {
         pbar.setIndeterminateDrawable(foldingCube);
         pbar.setVisibility(View.VISIBLE);
 
+        centerVP = findViewById(R.id.pager_center);
+        centerVP.disableScroll(true);
+        leftVP = findViewById(R.id.pager_left);
+        leftVP.disableScroll(true);
+        rightVP = findViewById(R.id.pager_right);
+        rightVP.disableScroll(true);
 
-        toolbarName = findViewById(R.id.home_toolbar_name);
-        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Gamlangdee.ttf");
-        toolbarName.setTypeface(customFont);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sharedPreferences.edit();
 
-        long lanch_count = sharedPreferences.getLong("launch_count",0)+1;
-        editor.putLong("launch_count",lanch_count);
+        toolbarName = (TextView) findViewById(R.id.app_name);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/Gamlangdee.ttf");
+        toolbarName.setTypeface(face);
 
-        if(lanch_count==3){
-            final Dialog dialog = new Dialog(HomeActivity.this);
-            dialog.setTitle("Rate our App");
-            LinearLayout linearLayout = new LinearLayout(HomeActivity.this);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
+        ImageView imageView = (ImageView) findViewById(R.id.info_img);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this,InfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
-            TextView tv = new TextView(HomeActivity.this);
-            tv.setText("If you are enjoying using Content cafe, please rate us. Thank you for your time");
-            tv.setWidth(240);
-            tv.setPadding(4, 0, 4, 10);
-            linearLayout.addView(tv);
-
-            Button yes = new Button(HomeActivity.this);
-            yes.setText("Rate Content Cafe");
-            yes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=ContentCafe")));
-                    dialog.dismiss();
+        top_RL.setOnTouchListener(new View.OnTouchListener() {
+            int downX, upX;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    downX = (int) event.getX();
+                    Log.i("down", " downX " + downX);
+                    return true;
                 }
-            });
-            linearLayout.addView(yes);
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    upX = (int) event.getX();
+                    Log.i("up", " upX " + upX);
+                    if (upX - downX > 100) {
+                        Log.i("right", " right called");
+                        onRightSwipe();
+                    }
 
-            Button no  = new Button(HomeActivity.this);
-            no.setText("No, Thanks");
-            no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
+                    else if (downX - upX > -100) {
+                        Log.i("left", " left called");
+                        onLeftSwipe();
+                        // swipe left
+                    }
+                    return true;
+
                 }
-            });
-            linearLayout.addView(no);
-
-  //          handler = new Handler();
-      //      Runnable runnable= new Runnable() {
-      //          @Override
-       //         public void run() {
-                    dialog.show();
-         //       }
-       //     };
-
-      //      handler.postDelayed(runnable,10000);
-        }
-
-        headlines = (TextView) findViewById(R.id.headlines_text_views);
-        headlines.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
+                return false;
             }
+
         });
-        headlines.setVisibility(View.GONE);
-
-        quizBtn = findViewById(R.id.home_quiz);
-        quizBtn.setVisibility(View.GONE);
-        quizBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, QuizActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        gk = (TextView) findViewById(R.id.gk_text_view);
-        gk.setVisibility(View.GONE);
-        gk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, GKActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        layoutManager = new LinearLayoutManager(HomeActivity.this);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(layoutManager);
-
-        gkRecyclerView = (RecyclerView) findViewById(R.id.gk_recycler_view);
-        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        llm.setStackFromEnd(false);
-        gkRecyclerView.setLayoutManager(llm);
-
 
         if (getNetworkSate()) {
             NewsLoadTask loadTask = new NewsLoadTask();
@@ -189,6 +153,48 @@ public class HomeActivity extends AppCompatActivity {
         NotificationHelper.scheduleRepeatingElapsedNotification(getApplicationContext());
 
 
+    }
+
+    void onLeftSwipe(){
+        int rightposition = rightVP.getCurrentItem();
+        if(rightposition==19){
+            rightVP.setCurrentItem(0);
+        }else{
+            rightVP.setCurrentItem(rightposition+1,true);
+        }
+        int centerposition = centerVP.getCurrentItem();
+        if(centerposition==19){
+            centerVP.setCurrentItem(0);
+        }else{
+            centerVP.setCurrentItem(centerposition+1,true);
+        }
+        int leftposition = leftVP.getCurrentItem();
+        if(leftposition==19){
+            leftVP.setCurrentItem(0);
+        }else{
+            leftVP.setCurrentItem(leftposition+1,true);
+        }
+    }
+
+    void onRightSwipe(){
+        int rightposition = rightVP.getCurrentItem();
+        if(rightposition==0){
+            rightVP.setCurrentItem(19);
+        }else{
+            rightVP.setCurrentItem(rightposition-1,true);
+        }
+        int centerposition = centerVP.getCurrentItem();
+        if(centerposition==0){
+            centerVP.setCurrentItem(19);
+        }else{
+            centerVP.setCurrentItem(centerposition-1,true);
+        }
+        int leftposition = leftVP.getCurrentItem();
+        if(leftposition==0){
+            leftVP.setCurrentItem(19);
+        }else{
+            leftVP.setCurrentItem(leftposition-1,true);
+        }
     }
 
     class NewsLoadTask extends AsyncTask<String, Void, Boolean> {
@@ -218,26 +224,14 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             pbar.setVisibility(View.GONE);
-            headlines.setVisibility(View.VISIBLE);
-            gk.setVisibility(View.VISIBLE);
-            adView.setVisibility(View.VISIBLE);
-            quizBtn.setVisibility(View.VISIBLE);
-            recyclerView.setAdapter(new HoneNewsRecyclerAdapter(HomeActivity.this, JsonResponseString, new HoneNewsRecyclerAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                    intent.putExtra("position", position);
-                    startActivity(intent);
-                }
-            }));
-            gkRecyclerView.setAdapter(new HomeGkRecyclerAdapter(InstaJsonResponseString, new HomeGkRecyclerAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    Intent intent = new Intent(HomeActivity.this, GKActivity.class);
-                    intent.putExtra("position", position);
-                    startActivity(intent);
-                }
-            }));
+
+            leftVP.setAdapter(new GkPagerAdapter(HomeActivity.this,InstaJsonResponseString));
+            leftVP.setCurrentItem(19);
+            centerVP.setAdapter(new GkPagerAdapter(HomeActivity.this,InstaJsonResponseString));
+            centerVP.setCurrentItem(0);
+            rightVP.setAdapter(new GkPagerAdapter(HomeActivity.this,InstaJsonResponseString));
+            rightVP.setCurrentItem(1);
+
 
         }
     }
@@ -253,25 +247,7 @@ public class HomeActivity extends AppCompatActivity {
         return connected;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_toolbar_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.home_toolbar_info:
-                Intent intent = new Intent(HomeActivity.this,InfoActivity.class);
-                startActivity(intent);
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
 
     @Override
     protected void onResume() {

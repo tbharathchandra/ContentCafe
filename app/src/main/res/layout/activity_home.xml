@@ -4,121 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/homeColor"
+    android:background="@android:color/white"
     tools:context=".HomeActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/home_toolbar"
+    <RelativeLayout
+        android:id="@+id/home_top"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="430dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/homeColor"
-        android:elevation="10dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <TextView
-                android:id="@+id/home_toolbar_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@color/textHighlight"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/gk_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_toolbar"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="0dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="10dp"
-        android:text="@string/today_s_gk_bytes"
-        android:textColor="@drawable/text_click_selector"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/headlines_text_views"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/adview"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="-4dp"
-        android:layout_marginBottom="-5dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="10dp"
-        android:text="@string/today_s_headlines_"
-        android:textColor="@drawable/text_click_selector"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_below="@id/headlines_text_views"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:padding="5dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gk_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="193dp"
-        android:layout_below="@id/gk_text_view"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="9dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="1dp" />
+        android:background="@drawable/top" >
+
+        <com.ssdevelopers.blotzmann.gkworld.CustomViewPager
+            android:id="@+id/pager_left"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="-80dp"/>
+        <com.ssdevelopers.blotzmann.gkworld.CustomViewPager
+            android:id="@+id/pager_right"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="-80dp"/>
+        <com.ssdevelopers.blotzmann.gkworld.CustomViewPager
+            android:id="@+id/pager_center"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            android:elevation="4dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/info_img"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/info"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"/>
+
 
     <ProgressBar
         android:id="@+id/home_pbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/home_quiz"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/multiple_choice"
-        android:layout_height="wrap_content" />
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gk_recycler_view"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-4704448064720651/2089096890"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@id/home_top">
+
+
+        <Button
+            android:id="@+id/home_headlines_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:background="@drawable/yellow_gradient"
+            android:padding="5dp"
+            android:text="@string/headlines"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textAllCaps="false"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"/>
+
+        <Button
+            android:id="@+id/home_quiz_btn"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/home_headlines_btn"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/yellow_gradient"
+            android:padding="4dp"
+            android:text="Quiz"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+
+
 
 </RelativeLayout>
