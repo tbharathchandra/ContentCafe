@@ -29,14 +29,13 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
     implementation 'com.android.support:support-v4:28.0.0'
-
-
+    implementation 'com.github.medyo:fancybuttons:1.9.1'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.eftimoff:android-viewpager-transformers:1.0.1@aar'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
     implementation 'nl.dionsegijn:konfetti:1.1.3'
     implementation 'com.google.android.gms:play-services-ads:17.2.1'
-
+    implementation 'com.github.MobileDews:Horizontalwheel:1.0.1'
     implementation 'com.google.firebase:firebase-core:16.0.8'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
