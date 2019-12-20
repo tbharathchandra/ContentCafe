@@ -66,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements OnWheelScrollList
 
     private TextView toolbarName;
     private ProgressBar pbar;
-    private static final String INSTA_URL = "https://api.instagram.com/v1/users/self/media/recent/?access_token=5763448592.1677ed0.82abcf35d76b4305bd45440b52ea0d26";
+    private static final String INSTA_URL = "https://api.instagram.com/v1/users/self/media/recent/?access_token=5763448592.1677ed0.6ece91c85c524949aa81734c2e7300cb";
     private static final String newsUrl = "https://newsapi.org/v2/top-headlines?category=general&apiKey=9c869f6faad148aaa39f0410b1626315&pageSize=100&country=in";
     private static final String BUSINESS_URL = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9c869f6faad148aaa39f0410b1626315";
     private static final String ENTER_URL="https://newsapi.org/v2/top-headlines?country=in&category=entertainment&apiKey=9c869f6faad148aaa39f0410b1626315";
