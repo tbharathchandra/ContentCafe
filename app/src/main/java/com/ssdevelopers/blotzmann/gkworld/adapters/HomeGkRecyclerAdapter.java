@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.adapters;
 
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
+import com.ssdevelopers.blotzmann.gkworld.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

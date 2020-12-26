@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
+        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }

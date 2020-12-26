@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.activities;
 
 
 import android.app.Dialog;
@@ -34,6 +34,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import com.google.android.gms.ads.MobileAds;
+import com.ssdevelopers.blotzmann.gkworld.R;
+import com.ssdevelopers.blotzmann.gkworld.adapters.HomeGkRecyclerAdapter;
+import com.ssdevelopers.blotzmann.gkworld.adapters.HoneNewsRecyclerAdapter;
+import com.ssdevelopers.blotzmann.gkworld.notification.NotificationHelper;
 
 
 import okhttp3.OkHttpClient;
@@ -264,7 +268,7 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.home_toolbar_info:
-                Intent intent = new Intent(HomeActivity.this,InfoActivity.class);
+                Intent intent = new Intent(HomeActivity.this, InfoActivity.class);
                 startActivity(intent);
                 return true;
 

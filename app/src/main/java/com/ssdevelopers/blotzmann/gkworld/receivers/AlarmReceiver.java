@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.receivers;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,15 +8,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+
+import com.ssdevelopers.blotzmann.gkworld.activities.HomeActivity;
+import com.ssdevelopers.blotzmann.gkworld.R;
+import com.ssdevelopers.blotzmann.gkworld.notification.NotificationHelper;
+
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.Random;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

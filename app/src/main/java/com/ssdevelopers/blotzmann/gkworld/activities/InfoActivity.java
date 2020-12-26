@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+
+import com.ssdevelopers.blotzmann.gkworld.R;
 
 public class InfoActivity extends AppCompatActivity {
     private Toolbar toolbar;

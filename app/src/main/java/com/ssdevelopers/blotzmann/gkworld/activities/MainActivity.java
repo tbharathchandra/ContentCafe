@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,19 +6,23 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 
-import com.eftimoff.viewpagertransformers.TabletTransformer;
-import com.eftimoff.viewpagertransformers.ZoomOutSlideTransformer;
+import com.eftimoff.viewpagertransformers.DepthPageTransformer;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.ssdevelopers.blotzmann.gkworld.R;
+import com.ssdevelopers.blotzmann.gkworld.adapters.VerticalPgaerAdapter;
 
-public class GKActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private String InstaJsonResponseString;
+    private String JsonResponseString;
+    private RelativeLayout layout;
+
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     InterstitialAd interstitialAd;
@@ -26,26 +30,27 @@ public class GKActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gk);
+        setContentView(R.layout.activity_main);
 
-        viewPager = (ViewPager) findViewById(R.id.gk_view_pager);
+
+        viewPager = findViewById(R.id.view_pager);
+        layout = (RelativeLayout)findViewById(R.id.main_layout);
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sharedPreferences.edit();
-        InstaJsonResponseString = sharedPreferences.getString("instaCachedData",null);
-        viewPager.setAdapter(new HorizontalPagerAdapter(GKActivity.this,InstaJsonResponseString));
-        viewPager.setPageTransformer(true,new TabletTransformer());
-        Intent intent = getIntent();
-        int position = intent.getIntExtra("position",0);
-        DotsIndicator dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
+        JsonResponseString = sharedPreferences.getString("cachedData",null);
 
-        MobileAds.initialize(GKActivity.this,"ca-app-pub-4704448064720651~4116887642");
-        interstitialAd = new InterstitialAd(GKActivity.this);
-        interstitialAd.setAdUnitId("ca-app-pub-4704448064720651/8225283927");
+        MobileAds.initialize(MainActivity.this,"ca-app-pub-4704448064720651~4116887642");
+        interstitialAd = new InterstitialAd(MainActivity.this);
+        interstitialAd.setAdUnitId("ca-app-pub-4704448064720651/6467325607");
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
-        dotsIndicator.setViewPager(viewPager);
-        viewPager.setCurrentItem(position);
+        viewPager.setAdapter(new VerticalPgaerAdapter(MainActivity.this,JsonResponseString));
+        viewPager.setPageTransformer(true,new DepthPageTransformer());
 
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position",0);
+        viewPager.setCurrentItem(position);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -71,5 +76,8 @@ public class GKActivity extends AppCompatActivity {
                 interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("03FDF9C1F3691D99070BA570B8DEBB21").build());
             }
         });
+
     }
+
+
 }

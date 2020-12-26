@@ -1,43 +1,25 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.eftimoff.viewpagertransformers.DepthPageTransformer;
 import com.eftimoff.viewpagertransformers.TabletTransformer;
-import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
-import com.github.ybq.android.spinkit.style.FoldingCube;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.ssdevelopers.blotzmann.gkworld.R;
+import com.ssdevelopers.blotzmann.gkworld.adapters.HorizontalPagerAdapter;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-public class MainActivity extends AppCompatActivity {
+public class GKActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private String JsonResponseString;
-    private RelativeLayout layout;
-
-
+    private String InstaJsonResponseString;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     InterstitialAd interstitialAd;
@@ -45,27 +27,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_gk);
 
-
-        viewPager = findViewById(R.id.view_pager);
-        layout = (RelativeLayout)findViewById(R.id.main_layout);
-
+        viewPager = (ViewPager) findViewById(R.id.gk_view_pager);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sharedPreferences.edit();
-        JsonResponseString = sharedPreferences.getString("cachedData",null);
-
-        MobileAds.initialize(MainActivity.this,"ca-app-pub-4704448064720651~4116887642");
-        interstitialAd = new InterstitialAd(MainActivity.this);
-        interstitialAd.setAdUnitId("ca-app-pub-4704448064720651/6467325607");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-
-        viewPager.setAdapter(new VerticalPgaerAdapter(MainActivity.this,JsonResponseString));
-        viewPager.setPageTransformer(true,new DepthPageTransformer());
-
+        InstaJsonResponseString = sharedPreferences.getString("instaCachedData",null);
+        viewPager.setAdapter(new HorizontalPagerAdapter(GKActivity.this,InstaJsonResponseString));
+        viewPager.setPageTransformer(true,new TabletTransformer());
         Intent intent = getIntent();
         int position = intent.getIntExtra("position",0);
+        DotsIndicator dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
+
+        MobileAds.initialize(GKActivity.this,"ca-app-pub-4704448064720651~4116887642");
+        interstitialAd = new InterstitialAd(GKActivity.this);
+        interstitialAd.setAdUnitId("ca-app-pub-4704448064720651/8225283927");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+
+        dotsIndicator.setViewPager(viewPager);
         viewPager.setCurrentItem(position);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -91,8 +72,5 @@ public class MainActivity extends AppCompatActivity {
                 interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("03FDF9C1F3691D99070BA570B8DEBB21").build());
             }
         });
-
     }
-
-
 }

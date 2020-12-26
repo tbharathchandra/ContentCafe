@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.ssdevelopers.blotzmann.gkworld.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

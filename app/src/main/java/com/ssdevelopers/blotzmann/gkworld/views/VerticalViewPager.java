@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.views;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

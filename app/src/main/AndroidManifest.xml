@@ -13,25 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".InfoActivity"
-            android:parentActivityName=".HomeActivity"/>
+        <activity android:name=".activities.InfoActivity"
+            android:parentActivityName=".activities.HomeActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4704448064720651~4116887642" />
 
         <activity
-            android:name=".QuizActivity"
-            android:parentActivityName=".HomeActivity"
+            android:name=".activities.QuizActivity"
+            android:parentActivityName=".activities.HomeActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".GKActivity"
+            android:name=".activities.GKActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -42,16 +42,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".receivers.AlarmReceiver" />
         <receiver
-            android:name=".AlarmBootReceiver"
+            android:name=".receivers.AlarmBootReceiver"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

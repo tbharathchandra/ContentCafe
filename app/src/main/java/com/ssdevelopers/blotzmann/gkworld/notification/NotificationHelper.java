@@ -1,4 +1,4 @@
-package com.ssdevelopers.blotzmann.gkworld;
+package com.ssdevelopers.blotzmann.gkworld.notification;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.SystemClock;
+
+import com.ssdevelopers.blotzmann.gkworld.receivers.AlarmBootReceiver;
+import com.ssdevelopers.blotzmann.gkworld.receivers.AlarmReceiver;
 
 import java.util.Calendar;
 
